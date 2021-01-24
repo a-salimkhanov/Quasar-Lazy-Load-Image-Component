@@ -1,4 +1,4 @@
-# Quasar-Lazy-Load-Image-Component
+# Quasar Lazy Load Image Component
 
 Usage example:
 
