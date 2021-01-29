@@ -1,15 +1,14 @@
 <template>
-  <span class=“relative-position” :class="spanClass" :style="spanStyle" v-intersection.once="onIntersection">
+  <span class=“relative-position” :class="spanClass" v-intersection.once="onIntersection">
     <transition name="q-transition--scale">
       <img
-        v-if="show"
-        v-show="loaded"
+        v-show="loaded && intersect"
         @load="loaded=true"
-        :src="src"
+        :src="intersect ? src : '/'"
         :title="title"
         :alt="title"
         :class="imgClass"
-        :style="imgStyle" />
+        :style="(loaded && intersect) ? imgStyle : ''" />
     </transition>
   </span>
 </template>
@@ -17,22 +16,21 @@
 <script>
 export default {
   name: 'LazyImg',
-  props: ['title', 'src', 'imgStyle', 'imgClass', 'spanClass', 'spanStyle'],
+  props: ['title', 'imgStyle', 'src', 'srclazy', 'imgClass', 'spanClass'],
   data () {
     return {
-      show: false,
-      loaded: false
+      loaded: false,
+      intersect: false
     }
   },
   methods: {
     onIntersection (entry) {
       if (entry.isIntersecting) {
-        this.show = true
+        this.loaded = false
+        this.intersect = true
       }
     }
   }
 }
 </script>
-
-<style lang=“scss” scoped>
-</style>
+<style lang=“sass” scoped></style>
